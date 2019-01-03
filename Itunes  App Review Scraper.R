@@ -24,14 +24,16 @@ library("RColorBrewer")
 
 #Review Scraper
 
-nbc_reviews <- bind_rows(lapply(1:10, function(n) {getReviews(442839435,'us',n)}))
+reviews <- bind_rows(lapply(1:10, function(n) {getReviews("APP ID",'us',n)}))
 
-write.csv(nbc_reviews, file = "nbc2.csv")
 
-#Ratings Trend
+# export to csv
+write.csv(reviews, file = "reviews.csv")
+
+####Ratings over time##### 
 
 #reviews into date table
-dt <- nbc_reviews
+dt <- reviews
 # extract dates column
 dt$Date <- as.Date(dt$Date)
 # extract ratings column
@@ -41,10 +43,10 @@ dt <- dt %>% select(Date,Rating) %>% group_by(Date) %>% summarise(Rating = round
 #graph
 highchart() %>%   hc_add_series_times_values(dt$Date,dt$Rating, name = 'Average Rating')
 
-#Sentiment Analysis 
+####Sentiment Analysis#### 
 
 # Column with only reviews
-reviews_only <- as.character(nbc_reviews$Review)
+reviews_only <- as.character(reviews$Review)
 #sentimentr table
 sentiment_scores <- reviews_only %>% sentiment_by(by=Date)
 #Graph Sentiment over time
@@ -59,14 +61,5 @@ wordcloud::wordcloud(reviews_only,max.words = 200, random.order = FALSE,colors =
 
 
 
-#Column Names
-names(nbc_reviews)
 
-#Export CSV
-write.csv(nbc_reviews,file = "nbc.csv")
-write.csv(sentiment_scores, file = "Sentiment_Scores.csv")
-
-
-
-write.csv(t,file="NBC_Total.csv")
 
