@@ -5,8 +5,6 @@ install.packages("highcharter") # graphing
 install.packages("dplyr") #table binding
 install.packages("lubridate") # time series plotting
 install.packages("sentimentr") # sentiment analysis
-install.packages("tm")  # for text mining
-install.packages("SnowballC") # for text stemming
 install.packages("RColorBrewer") # color palettes
 #Load
 library(itunesr)
@@ -17,8 +15,6 @@ library(highcharter)
 library(dplyr)
 library(lubridate)
 library(sentimentr)
-library("tm")
-library("SnowballC")
 library("wordcloud")
 library("RColorBrewer")
 
